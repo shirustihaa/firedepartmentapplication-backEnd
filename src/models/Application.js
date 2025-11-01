@@ -53,7 +53,7 @@ const applicationSchema = new mongoose.Schema({
       'approved',
       'rejected',
       'noc_issued',
-      'license_issued'
+      //'license_issued'
     ],
     default: 'submitted'
   },
@@ -74,10 +74,10 @@ const applicationSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'NOC'
   },
-  license: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'License'
-  },
+  //license: {
+    //type: mongoose.Schema.Types.ObjectId,
+    //ref: 'License'
+  //},
   timeline: [{
     status: String,
     timestamp: Date,

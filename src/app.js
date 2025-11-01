@@ -16,7 +16,7 @@ const logger = require('./utils/logger');
 const authRoutes = require('./routes/auth');
 const applicationRoutes = require('./routes/applications');
 const nocRoutes = require('./routes/noc');
-const licenseRoutes = require('./routes/licenses');
+//const licenseRoutes = require('./routes/licenses');
 const reportRoutes = require('./routes/reports');
 const inspectionRoutes = require('./routes/inspections');
 
@@ -61,7 +61,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/applications', applicationRoutes);
 app.use('/api/inspections', inspectionRoutes);
 app.use('/api/noc', nocRoutes);
-app.use('/api/licenses', licenseRoutes);
+//app.use('/api/licenses', licenseRoutes);
 app.use('/api/reports', reportRoutes);
 
 // Health check endpoint

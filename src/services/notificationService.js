@@ -115,33 +115,11 @@ exports.sendNOCIssued = async (user, noc) => {
   }
 };
 
-// License issued notification
-exports.sendLicenseIssued = async (user, license) => {
-  logger.info(`License issued: ${license.licenseNumber}`);
 
-  if (user.notificationPreferences && user.notificationPreferences.inApp) {
-    sendInAppNotification(user._id, {
-      type: 'license_issued',
-      title: 'License Issued',
-      message: `License ${license.licenseNumber} has been issued.`,
-      licenseId: license._id
-    });
-  }
-};
 
-// License renewal reminder
-exports.sendLicenseRenewalReminder = async (user, license) => {
-  logger.info(`License renewal reminder for: ${license.licenseNumber}`);
 
-  if (user.notificationPreferences && user.notificationPreferences.inApp) {
-    sendInAppNotification(user._id, {
-      type: 'license_renewal',
-      title: 'License Renewal',
-      message: `License ${license.licenseNumber} is expiring soon.`,
-      licenseId: license._id
-    });
-  }
-};
+
+
 
 // Overdue notification
 exports.sendOverdueNotification = async (user, application) => {

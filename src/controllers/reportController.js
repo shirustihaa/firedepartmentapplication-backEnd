@@ -1,7 +1,7 @@
 const Application = require('../models/Application');
 const Inspection = require('../models/Inspection');
 const NOC = require('../models/NOC');
-const License = require('../models/License');
+//const License = require('../models/License');
 const logger = require('../utils/logger');
 
 // @desc    Get dashboard summary
@@ -59,14 +59,14 @@ exports.getDashboardSummary = async (req, res) => {
     const expiredNOCs = await NOC.countDocuments({ status: 'expired' });
 
     // License stats
-    const totalLicenses = await License.countDocuments();
-    const activeLicenses = await License.countDocuments({ status: 'active' });
-    const expiringLicenses = await License.countDocuments({
-      status: 'active',
-      validUntil: {
-        $lte: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // Next 30 days
-      }
-    });
+    //const totalLicenses = await License.countDocuments();
+    //const activeLicenses = await License.countDocuments({ status: 'active' });
+    //const expiringLicenses = await License.countDocuments({
+    //  status: 'active',
+      //validUntil: {
+        //$lte: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // Next 30 days
+      //}
+    //});
 
     // Recent applications (last 7 days)
     const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
@@ -125,11 +125,11 @@ exports.getDashboardSummary = async (req, res) => {
           active: activeNOCs,
           expired: expiredNOCs
         },
-        licenses: {
-          total: totalLicenses,
-          active: activeLicenses,
-          expiring: expiringLicenses
-        }
+        //licenses: {
+          //total: totalLicenses,
+          //active: activeLicenses,
+          //expiring: expiringLicenses
+        //}
       }
     });
   } catch (error) {
@@ -270,21 +270,7 @@ exports.getOverdueReport = async (req, res) => {
       .populate('assignedTo', 'name email');
 
     // Expiring licenses (next 30 days)
-    const expiringLicenses = await License.find({
-      status: 'active',
-      validUntil: {
-        $gte: now,
-        $lte: new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000)
-      }
-    }).populate('licensee', 'name email phone');
-
-    res.status(200).json({
-      success: true,
-      data: {
-        overdueApplications,
-        expiringLicenses
-      }
-    });
+    
   } catch (error) {
     logger.error(`Get overdue report error: ${error.message}`);
     res.status(500).json({
